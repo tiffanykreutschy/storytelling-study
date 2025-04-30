@@ -1,0 +1,68 @@
+{% extends "global/Page.html" %}
+{% block content %}
+<h2>Storytelling Study</h2>
+<p>AAAV5817(M00Y01)</p>
+
+<div>
+    <h3>CONSENT FORM</h3>
+    <p>
+        Dear participant, <br><br>
+        You are invited to participate in a research study conducted by Tiffany Kreutschy and Stephan Meier (Columbia Business School). You must be at least 18 years old and fluent in English to participate.
+    </p>
+    <p>
+        The purpose of the following study is to study human behavior and interactions. More specifically, we aim to explore how to improve teamwork. This study involves storytelling and giving/receiving feedback/improved feedback.
+    </p>
+
+    <h4>STUDY DURATION</h4>
+    <p>The study will last approximately 45 minutes.</p>
+
+    <h4>VOLUNTARY</h4>
+    <p>
+        Participation in research is entirely voluntary, and you may stop at any time. Your decision whether or not to participate will have no impact on your employment, student status, or any other entitlements. If you do choose to participate, the answers given will have no impact on salary, grade, or employment with Columbia University (CU) or New-York Presbyterian (NYP).<br>
+        You will only receive compensation if you complete the entire study. Submitting the survey implies consent to participate.
+    </p>
+
+    <h4>REMUNERATION</h4>
+    <p>
+        You will receive compensation of $15 for taking part in this 45-minute experiment. Then, depending on your decisions/performance in the experiment, you can have a bonus of up to $25. This money will be given in the form of cash.
+    </p>
+
+    <h4>RISKS</h4>
+    <p>There are no risks involved in participating in this study.</p>
+
+    <h4>CONFIDENTIALITY</h4>
+    <p>
+        All data will be treated confidentially and will not be disclosed unless required by law. The research team will not have access to any identifiable data, data that will have been previously anonymized by the person in charge of data collection. Results will be published in aggregate form only and will not identify individual participants by name or initials. Your textual answers may be used as input for AI analyses.
+    </p>
+
+    <h4>BENEFIT</h4>
+    <p>
+        This study aims at investigating how to improve teamwork (performance and satisfaction of the interactions). Our results will allow us to inform business sectors (e.g., create trainings that integrate our findings to improve teamwork) and potentially policies.
+    </p>
+
+    <h4>CONTACT INFORMATION</h4>
+    <p>
+        If you have any questions about this study, please contact Tiffany Kreutschy (tiffany.kreutschy@unil.ch).<br>
+        If you have any questions about your rights as participants, please contact Columbia IRB team (askirb@columbia.edu).
+    </p>
+
+    <!-- Add the formfield for consent -->
+    <div>
+        {{ formfield "consent_given" }}
+        {{ formfield_errors "consent_given" }}
+    </div>
+
+    <!-- Next button -->
+    <button id="next-button" disabled>Next</button>
+</div>
+
+<script>
+    // JavaScript to enable the "Next" button only after the checkbox is selected
+    const consentCheckbox = document.querySelector('input[name="consent_given"]');
+    const nextButton = document.getElementById('next-button');
+
+    consentCheckbox.addEventListener('change', () => {
+        nextButton.disabled = !consentCheckbox.checked;
+    });
+</script>
+{% endblock %}

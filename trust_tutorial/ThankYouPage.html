@@ -1,0 +1,30 @@
+{% extends "global/Page.html" %}
+{% block content %}
+<h2>Thank You for Participating!</h2>
+
+<p>Your total payoff is: <strong>${{ unrounded_total }}</strong> that will be rounded to the next dollar. </p>
+
+<ul>
+    <li>Flat rate of 15$ for your participation</li>
+    <li>Bonus from image task: ${{ task_bonus }}</li>
+    {% if player.id_in_group == 2 %}
+    <li>Bonus for correct mode guess: ${{ mode_bonus }}</li>
+    <li>Bonus for correct mean guess: ${{ mean_bonus }}</li>
+    {% endif %}
+    {% if player.id_in_group == 1 %}
+    <li>Bonus for teammate belief match: ${{ writer_mode_bonus_teammate }}</li>
+    <li>Bonus for boss belief match: ${{ writer_mode_bonus_boss }}</li>
+    {% endif %}
+</ul>
+
+<h3>Here is the story your team created:</h3>
+<blockquote>
+    {{ final_story }}
+</blockquote>
+
+Click to the next button to finish the study and register for the 50$ price for the best story.
+
+{{ next_button }}
+
+{% endblock %}
+
