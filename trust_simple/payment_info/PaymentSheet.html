@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% block content %}
+
+<h2>Thank you for your participation.</h2>
+<p>This study is financed by Stephen Meier.</p>
+
+<button onclick="window.print()">🖨️ Print or Save as PDF</button>
+
+<table border="1" style="width:100%; border-collapse: collapse; margin-top:20px;">
+    <tr>
+        <th>Participant Code</th>
+        <th>Payment Amount (USD)</th>
+        <th>Name</th>
+        <th>First Name</th>
+        <th>Student Number</th>
+        <th>Address</th>
+        <th>Signature</th>
+    </tr>
+    {% for p in participants_data %}
+    <tr>
+        <td>{{ p.code }}</td>
+        <td>{{ p.payoff }}</td>
+        <td>_________________</td>
+        <td>_________________</td>
+        <td>_________________</td>
+        <td>_________________</td>
+        <td>_________________</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "global/Page.html" %}
+{% block content %}
+<h2>Write Your Story</h2>
+
+<p>
+    <strong>You have 7 minutes </strong> to write the first version of your story.
+</p>
+
+<p>
+    The story should be compelling and appeal to emotions and values to motivate potential donors.
+</p>
+
+<p>
+    Later in the study, the other participant in your team will read your story and provide feedback. You will then have the opportunity to view this feedback and review your story for 5 more minutes.
+</p>
+
+<p>
+    Note: You may receive feedback in slightly different formats due to differences in how feedback is processed.
+</p>
+
+<div class="story-container">
+    <textarea
+        id="story_textarea"
+        name="story_text"
+        rows="10"
+        cols="80"
+        placeholder="Write your story here..."
+        oninput="updateWordCountAndLimit('story_textarea', 'word_count', 200)"
+        required
+    ></textarea>
+    <p id="word_count">Word count: 0/200</p>
+</div>
+
+<!-- Display error message for story_text if there are any -->
+<div class="error-message">
+    {% formfield_errors "story_text" %}
+</div>
+
+<!-- Hidden input to store the number of clicks -->
+<input type="hidden" name="instructions_click_count" id="instructions_click_count" value="0">
+
+<!-- Button to open instructions modal -->
+<button type="button" class="btn btn-info" id="instructions-btn">Re-view Instructions</button>
+
+<!-- Modal for Task Instructions -->
+<div id="instructionsModal" class="modal" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Task Instructions</h5>
+                <!-- Cross symbol close button -->
+                <button type="button" class="close" aria-label="Close" id="close-modal-btn">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Storytelling Task</h2>
+                <p>Your team needs to write a compelling story to include in a donation campaign letter for sick kids. The idea is to appeal to emotions, values, and make it as compelling as possible to motivate people to donate.</p>
+
+                <p><strong>You can see this task as a contest:</strong> the best story will win an additional cash prize of $50 to share between the two team members.</p>
+
+                <h3>Details about the Task</h3>
+                <p>Your story will be inserted into the following letter:</p>
+
+                <div style="border: 2px solid #ffd700; padding: 15px; margin: 20px 0; background-color: #fffbea;">
+                    <p><strong>Dear [potential donor’s name],</strong></p>
+                    <p>
+                        I’m reaching out to share an opportunity to make a real difference in the lives of children who are fighting serious illnesses. St. Jude Children’s Research Hospital is dedicated to helping families during some of their hardest days, providing care, comfort, and support when they need it most.
+                    </p>
+                    <p>
+                        Each year, many gravely ill children spend their holidays in the hospital. For these families, Christmas isn’t a time of celebration but one of worry and uncertainty. This is where your support can bring light. Your donation helps us provide crucial resources—whether it’s funding accommodations so parents can stay close to their children, decorating rooms to create a festive, comforting environment, or setting up playrooms filled with toys to bring smiles to the faces of kids who need it the most.
+                    </p>
+                    <div style="background-color: yellow; padding: 10px; font-style: italic;">
+                        [Your story here. Write a paragraph that illustrates the impact of donating to a sick child.]
+                    </div>
+                    <p>
+                        Every donation makes an impact. Just as each letter we send out can reach someone who wants to help, every contribution we receive allows us to reach more families and make their holidays brighter, even within hospital walls. Your generosity goes beyond a simple gift; it becomes a source of hope and comfort, helping to create lasting memories for families facing unimaginable challenges.
+                    </p>
+                    <p>
+                        Please consider making a donation today to support this vital mission. Together, we can make sure that these children and their families know they are not alone. Your kindness can make all the difference.
+                    </p>
+                    <p><strong>With heartfelt thanks,</strong><br>St. Jude Children’s Research Hospital</p>
+                </div>
+
+                <h3>What Makes a Good Story?</h3>
+                <ul>
+                    <li>Create relatable characters with human flaws, needs, and preferences.</li>
+                    <li>Put them in an emotional or tense situation (e.g., happiness, sadness, pride).</li>
+                    <li>Develop a plot with a problem or challenge that needs solving.</li>
+                    <li>Provide a resolution, ideally with an unexpected twist.</li>
+                    <li>Make the moral clear and ensure it inspires the reader to act.</li>
+                </ul>
+
+                <h3>Example of a Good Story</h3>
+                <p>
+                    Here’s an example in a completely different context to inspire you:
+                </p>
+                <blockquote style="background-color: #f9f9f9; padding: 10px; margin-top: 10px;">
+                    “Have you heard of the hummingbird that wanted to make a difference? One day there was a huge forest fire. All the animals fled dismayed, discouraged to see the forest burning. They felt very helpless. Except one bird, a little hummingbird. The hummingbird thought it would do something to fight the fire. So it flew to the nearest stream, took a drop of water in its beak, and flew to throw it on the fire. It descended, rose, and descended as quickly as it could. Drop by drop. Meanwhile, the animals, who by joining their forces, could bring much more water, did nothing. They said to the hummingbird: "But what do you think you can do, this fire is way too big for you. How will you extinguish the fire with drops?" Without wasting a moment, it turned to them, looked them in the eye, and said: "At least I did my part."”
+                </blockquote>
+
+                <h3>Additional Instructions</h3>
+                <p>As you proceed with this task, remember the following:</p>
+                <ul>
+                    <li>You have up to 200 words for your story. Please use this space wisely to create an impactful narrative.</li>
+                    <li>The story should connect emotionally with the reader, helping them envision the impact of their donation.</li>
+                    <li>You can click on “See Instructions” (top right) at any time during the task to review these guidelines again.</li>
+                    <li>Think creatively! The goal is to make your story stand out while staying relevant to the cause.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize a click counter for instructions
+    let clickCount = 0;
+
+    // Open modal when the button is clicked
+    document.getElementById("instructions-btn").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("instructionsModal").style.display = "block";
+        clickCount += 1;
+        document.getElementById("instructions_click_count").value = clickCount;
+    });
+
+    // Close modal when the close button is clicked
+    document.getElementById("close-modal-btn").addEventListener("click", function() {
+        document.getElementById("instructionsModal").style.display = "none";
+    });
+
+    // Close modal when clicking outside of the modal content
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("instructionsModal")) {
+            document.getElementById("instructionsModal").style.display = "none";
+        }
+    };
+
+    // Update word count and enforce limit
+    function updateWordCountAndLimit(textareaId, counterId, maxWords) {
+        const textarea = document.getElementById(textareaId);
+        const text = textarea.value.trim();
+        const words = text.split(/\s+/).filter(Boolean); // Split by spaces and filter empty strings
+        const wordCount = words.length;
+
+        // Update the word count display
+        const counterElement = document.getElementById(counterId);
+        counterElement.textContent = `Word count: ${wordCount}/${maxWords}`;
+
+        // Enforce the word limit
+        if (wordCount > maxWords) {
+            textarea.value = words.slice(0, maxWords).join(" ");
+            counterElement.textContent = `Word count: ${maxWords}/${maxWords}`;
+        }
+    }
+</script>
+
+<style>
+    .story-container {
+        margin-bottom: 20px;
+    }
+
+    .button-container {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}

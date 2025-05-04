@@ -1,0 +1,54 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<h2>Questionnaire</h2>
+
+<form method="post">
+
+    <p>What do you think most participants would prefer: harsher feedback from a teammate who doesn’t use AI or less harsh feedback from a teammate who uses AI? If you choose the most common response (mode), you will get an extra 1$</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="writer_belief_teammate" value="1" required> Harsher from non-AI </label>
+        <label><input type="radio" name="writer_belief_teammate" value="2"> Softer with help of AI </label>
+    </div>
+
+    <p>Would you rather receive harsher feedback from a boss who doesn’t use AI or less harsh feedback from a boss who uses AI?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="writer_preference_boss" value="1" required> Harsher from non-AI </label>
+        <label><input type="radio" name="writer_preference_boss" value="2"> Softer with help of AI </label>
+    </div>
+
+<script>
+function toggleVolunteerHours() {
+    const radios = document.getElementsByName('charity_volunteer');
+    const section = document.getElementById('volunteer_hours_section');
+    for (let radio of radios) {
+        if (radio.checked && radio.value === 'Yes') {
+            section.style.display = 'block';
+            return;
+        }
+    }
+    section.style.display = 'none';
+}
+</script>
+
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+
+<style>
+    .likert-scale {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin: 15px 0;
+    }
+    .likert-scale label {
+        display: block;
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: left;
+    }
+</style>
+{% endblock %}

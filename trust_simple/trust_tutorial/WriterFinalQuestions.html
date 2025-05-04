@@ -1,0 +1,168 @@
+{% extends "global/Page.html" %}
+
+{% block content %}
+<h2>Questionnaire</h2>
+
+<form method="post">
+
+    <!-- Constructive Feedback Received -->
+    <p>How constructive was the feedback you received?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="constructive_feedback_received" value="1" required> Very destructive</label>
+        <label><input type="radio" name="constructive_feedback_received" value="2"> Destructive</label>
+        <label><input type="radio" name="constructive_feedback_received" value="3"> Somewhat destructive</label>
+        <label><input type="radio" name="constructive_feedback_received" value="4"> Neutral</label>
+        <label><input type="radio" name="constructive_feedback_received" value="5"> Somewhat constructive</label>
+        <label><input type="radio" name="constructive_feedback_received" value="6"> Constructive</label>
+        <label><input type="radio" name="constructive_feedback_received" value="7"> Very constructive</label>
+    </div>
+
+    <!-- Relevant Feedback Received -->
+    <p>How relevant was the feedback you received?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="relevant_feedback_received" value="1" required> Very irrelevant</label>
+        <label><input type="radio" name="relevant_feedback_received" value="2"> Irrelevant</label>
+        <label><input type="radio" name="relevant_feedback_received" value="3"> Somewhat irrelevant</label>
+        <label><input type="radio" name="relevant_feedback_received" value="4"> Neutral</label>
+        <label><input type="radio" name="relevant_feedback_received" value="5"> Somewhat relevant</label>
+        <label><input type="radio" name="relevant_feedback_received" value="6"> Relevant</label>
+        <label><input type="radio" name="relevant_feedback_received" value="7"> Very relevant</label>
+    </div>
+
+    <!-- Helpful Communication -->
+    <p>To what extent was the feedback you received communicated in a helpful way?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="helpful_communication_received" value="1" required> Very unhelpful</label>
+        <label><input type="radio" name="helpful_communication_received" value="2"> Unhelpful</label>
+        <label><input type="radio" name="helpful_communication_received" value="3"> Somewhat unhelpful</label>
+        <label><input type="radio" name="helpful_communication_received" value="4"> Neutral</label>
+        <label><input type="radio" name="helpful_communication_received" value="5"> Somewhat helpful</label>
+        <label><input type="radio" name="helpful_communication_received" value="6"> Helpful</label>
+        <label><input type="radio" name="helpful_communication_received" value="7"> Very helpful</label>
+    </div>
+
+    <!-- Agreeable Tone -->
+    <p>How agreeable was the tone of the feedback you received?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="agreeable_tone_received" value="1" required> Very disagreeable</label>
+        <label><input type="radio" name="agreeable_tone_received" value="2"> Disagreeable</label>
+        <label><input type="radio" name="agreeable_tone_received" value="3"> Somewhat disagreeable</label>
+        <label><input type="radio" name="agreeable_tone_received" value="4"> Neutral</label>
+        <label><input type="radio" name="agreeable_tone_received" value="5"> Somewhat agreeable</label>
+        <label><input type="radio" name="agreeable_tone_received" value="6"> Agreeable</label>
+        <label><input type="radio" name="agreeable_tone_received" value="7"> Very agreeable</label>
+    </div>
+
+        <!-- Harsh Feedback -->
+    <p>How harsh was the feedback you received?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="harsh_feedback" value="1" required> Very soft</label>
+        <label><input type="radio" name="harsh_feedback" value="2"> Soft</label>
+        <label><input type="radio" name="harsh_feedback" value="3"> Somewhat soft</label>
+        <label><input type="radio" name="harsh_feedback" value="4"> Neutral</label>
+        <label><input type="radio" name="harsh_feedback" value="5"> Somewhat harsh</label>
+        <label><input type="radio" name="harsh_feedback" value="6"> Harsh</label>
+        <label><input type="radio" name="harsh_feedback" value="7"> Very harsh</label>
+    </div>
+
+       <!-- Rude Feedback -->
+    <p>How rude was the feedback you received?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="rude_feedback" value="1" required> Very polite</label>
+        <label><input type="radio" name="rude_feedback" value="2"> Polite</label>
+        <label><input type="radio" name="rude_feedback" value="3"> Somewhat polite</label>
+        <label><input type="radio" name="rude_feedback" value="4"> Neutral</label>
+        <label><input type="radio" name="rude_feedback" value="5"> Somewhat rude</label>
+        <label><input type="radio" name="rude_feedback" value="6"> Rude</label>
+        <label><input type="radio" name="rude_feedback" value="7"> Very rude</label>
+    </div>
+
+    <!-- Collaborative Teammate -->
+    <p>How collaborative was your teammate?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="collaborative_teammate" value="1" required> Very uncooperative</label>
+        <label><input type="radio" name="collaborative_teammate" value="2"> Uncooperative</label>
+        <label><input type="radio" name="collaborative_teammate" value="3"> Somewhat uncooperative</label>
+        <label><input type="radio" name="collaborative_teammate" value="4"> Neutral</label>
+        <label><input type="radio" name="collaborative_teammate" value="5"> Somewhat collaborative</label>
+        <label><input type="radio" name="collaborative_teammate" value="6"> Collaborative</label>
+        <label><input type="radio" name="collaborative_teammate" value="7"> Very collaborative</label>
+    </div>
+
+    <!-- Feedback Shaped Final Story -->
+    <p>To what extent do you believe the feedback you received shaped the final story?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="feedback_shaped_final_story" value="1" required> Not at all</label>
+        <label><input type="radio" name="feedback_shaped_final_story" value="2"> Slightly</label>
+        <label><input type="radio" name="feedback_shaped_final_story" value="3"> Somewhat</label>
+        <label><input type="radio" name="feedback_shaped_final_story" value="4"> Neutral</label>
+        <label><input type="radio" name="feedback_shaped_final_story" value="5"> Fairly</label>
+        <label><input type="radio" name="feedback_shaped_final_story" value="6"> Very</label>
+        <label><input type="radio" name="feedback_shaped_final_story" value="7"> Totally</label>
+    </div>
+
+    <!-- Satisfaction with Teammate -->
+    <p>How satisfied are you with the interactions with your teammate?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="satisfaction_with_interactions_received" value="1" required> Not at all</label>
+        <label><input type="radio" name="satisfaction_with_interactions_received" value="2"> Slightly</label>
+        <label><input type="radio" name="satisfaction_with_interactions_received" value="3"> Somewhat</label>
+        <label><input type="radio" name="satisfaction_with_interactions_received" value="4"> Neutral</label>
+        <label><input type="radio" name="satisfaction_with_interactions_received" value="5"> Fairly</label>
+        <label><input type="radio" name="satisfaction_with_interactions_received" value="6"> Very</label>
+        <label><input type="radio" name="satisfaction_with_interactions_received" value="7"> Totally</label>
+    </div>
+
+    <!-- Work with Teammate Again -->
+    <p>If paired in another experiment (and possible), would you choose to work with this teammate again?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="work_with_teammate_again_received" value="1" required> For sure not</label>
+        <label><input type="radio" name="work_with_teammate_again_received" value="2"> Very unlikely</label>
+        <label><input type="radio" name="work_with_teammate_again_received" value="3"> Unlikely</label>
+        <label><input type="radio" name="work_with_teammate_again_received" value="4"> Neutral</label>
+        <label><input type="radio" name="work_with_teammate_again_received" value="5"> Likely</label>
+        <label><input type="radio" name="work_with_teammate_again_received" value="6"> Very likely</label>
+        <label><input type="radio" name="work_with_teammate_again_received" value="7"> For sure</label>
+    </div>
+
+    <p>Would you rather receive harsher feedback from a teammate who doesn’t use AI or less harsh feedback from a teammate who uses AI?</p>
+    <div class="likert-scale">
+        <label><input type="radio" name="writer_preference_teammate" value="1" required> Harsher from non-AI </label>
+        <label><input type="radio" name="writer_preference_teammate" value="2"> Softer with help of AI </label>
+    </div>
+
+<script>
+function toggleVolunteerHours() {
+    const radios = document.getElementsByName('charity_volunteer');
+    const section = document.getElementById('volunteer_hours_section');
+    for (let radio of radios) {
+        if (radio.checked && radio.value === 'Yes') {
+            section.style.display = 'block';
+            return;
+        }
+    }
+    section.style.display = 'none';
+}
+</script>
+
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+
+<style>
+    .likert-scale {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin: 15px 0;
+    }
+    .likert-scale label {
+        display: block;
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: left;
+    }
+</style>
+{% endblock %}
