@@ -406,6 +406,7 @@ class Player(BasePlayer):
             [5, "Less than 10 hours"],
             [6, "Zero hours"],
         ],
+        blank=True,
         widget=widgets.RadioSelectHorizontal,
     )
     age = models.IntegerField(label="How old are you?")
@@ -1080,6 +1081,10 @@ class Demographics(Page):
         "participation_satisfaction",
         "comments",
     ]
+
+    def error_message(player, values):
+        if values['charity_volunteer'] == 'Yes' and values['volunteer_hours'] is None:
+            return "Please tell us how many hours you volunteer annually."
 
 class WaitForWriter(WaitPage):
     after_all_players_arrive = "calculate_mode_and_mean"
