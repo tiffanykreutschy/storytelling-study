@@ -3,7 +3,7 @@ import random
 import json
 
 from . import IntroductionPage, FirstChapterIntroduction, EyesTask, Results, SecondChapter, TaskInstructions, WriteStory, ReadingTime, ProvideFeedback, ViewFeedback, ReviseStory, FeedbackGiverQuestions, FeedbackGiverQuestions2, FeedbackGiverQuestions3, WriterFinalQuestions, WriterFinalQuestions2, WriterFinalQuestions3, Demographics, FinalStory, ThankYouPage
-from final_save.pages import FinalSavePage
+from final_save import FinalSavePage
 
 class PlayerBot(Bot):
     def play_round(self):
@@ -113,5 +113,5 @@ class PlayerBot(Bot):
 
         yield FinalStory
         yield ThankYouPage
-        yield final_save.pages.FinalSavePage, {"email_address": "bot@example.com"}
+        yield FinalSavePage, {"email_address": "bot@example.com"}
 
