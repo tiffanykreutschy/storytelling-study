@@ -131,7 +131,10 @@
 
 <div id="volunteer_hours_section" style="display:none;">
     <p>If Yes, how many hours of charity work do you do annually?</p>
-    <select name="volunteer_hours">
+
+    {{ formfield_errors 'volunteer_hours' }}
+
+    <select name="volunteer_hours" required>
         <option value="">-- Select an option --</option>
         <option value="60+">More than 60 hours</option>
         <option value="40-60">Between 40 and 60 hours</option>
