@@ -38,3 +38,6 @@ USE_POINTS = False  # False to not round, puts it into money
 INSTALLED_APPS = ['otree']
 
 STATIC_URL = '/static/'
+
+ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
