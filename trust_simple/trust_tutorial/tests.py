@@ -105,7 +105,7 @@ class PlayerBot(Bot):
             "english_level": "Fluent",
             "school_affiliation": "Columbia Business School",
             "program": "Undergrad",
-            "year": "Slightly",
+            "year": "1st",
             "participation_satisfaction": 5,
             "comments": "No comments.",
         }
