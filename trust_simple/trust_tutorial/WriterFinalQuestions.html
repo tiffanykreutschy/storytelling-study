@@ -128,9 +128,16 @@
 <p>Would you rather receive harsher feedback from a teammate who doesn’t use AI or less harsh feedback from a teammate who uses AI?</p>
 
 {{ formfield_errors 'writer_preference_teammate' }}
+
 <div class="likert-scale">
-    <label><input type="radio" name="writer_preference_teammate" value="1" required> Harsher from non-AI </label>
-    <label><input type="radio" name="writer_preference_teammate" value="2"> Softer with help of AI </label>
+    <label>
+        <input type="radio" name="writer_preference_teammate" value="Harsher from non-AI" required>
+        Harsher from non-AI
+    </label>
+    <label>
+        <input type="radio" name="writer_preference_teammate" value="Softer with help of AI">
+        Softer with help of AI
+    </label>
 </div>
 
 <script>
