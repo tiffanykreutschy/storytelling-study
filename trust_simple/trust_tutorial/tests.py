@@ -2,19 +2,16 @@ from otree.api import Bot, Submission
 import random
 import json
 
-from . import pages
-
-
 class PlayerBot(Bot):
     def play_round(self):
-        yield pages.IntroductionPage, {'consent_given': True}
-        yield pages.FirstChapterIntroduction
-        yield Submission(pages.EyesTask, {
+        yield IntroductionPage, {'consent_given': True}
+        yield FirstChapterIntroduction
+        yield Submission(EyesTask, {
             'responses': json.dumps(['choice1'] * 36)
         }, check_html=False)
-        yield pages.Results
-        yield pages.SecondChapter
-        yield pages.TaskInstructions
+        yield Results
+        yield SecondChapter
+        yield TaskInstructions
 
         if self.player.id_in_group == 1:
             yield Submission(pages.WriteStory, {
@@ -22,19 +19,19 @@ class PlayerBot(Bot):
             }, check_html=False)
 
         if self.player.id_in_group == 2:
-            yield pages.ReadingTime  # If timer-based, omit or simulate timeout
-            yield Submission(pages.ProvideFeedback, {
+            yield ReadingTime  # If timer-based, omit or simulate timeout
+            yield Submission(ProvideFeedback, {
                 'feedback_text': 'This is automated feedback from the bot.'
             }, check_html=False)
 
         if self.player.id_in_group == 1:
-            yield pages.ViewFeedback
-            yield Submission(pages.ReviseStory, {
+            yield ViewFeedback
+            yield Submission(ReviseStory, {
                 'revised_story': 'This is the revised story.'
             }, check_html=False)
 
         if self.player.id_in_group == 2:
-            yield pages.FeedbackGiverQuestions, {
+            yield FeedbackGiverQuestions, {
                 "constructive_feedback": 5,
                 "relevant_feedback": 5,
                 "helpful_communication": 5,
@@ -47,11 +44,11 @@ class PlayerBot(Bot):
                 "work_with_teammate_again_received": 5,
                 "ai_use": 1,
             }
-            yield pages.FeedbackGiverQuestions2, {
+            yield FeedbackGiverQuestions2, {
                 "ai_use_beliefs": 4,
                 "willing_to_pay_for_ai": 4.50,
             }
-            yield pages.FeedbackGiverQuestions3, {
+            yield FeedbackGiverQuestions3, {
                 "beliefs_willing_to_pay_for_ai": 3.50,
                 "chatgpt_interpersonal": 4,
                 "chatgpt_feedback": 4,
@@ -67,7 +64,7 @@ class PlayerBot(Bot):
             }
 
         if self.player.id_in_group == 1:
-            yield pages.WriterFinalQuestions, {
+            yield WriterFinalQuestions, {
                 "constructive_feedback_received": 4,
                 "relevant_feedback_received": 4,
                 "helpful_communication_received": 4,
@@ -80,11 +77,11 @@ class PlayerBot(Bot):
                 "work_with_teammate_again_received": 1,
                 "writer_preference_teammate": 1,
             }
-            yield pages.WriterFinalQuestions2, {
+            yield WriterFinalQuestions2, {
                 "writer_belief_teammate": 3,
                 "writer_preference_boss": 2,
             }
-            yield pages.WriterFinalQuestions3, {
+            yield WriterFinalQuestions3, {
                 "writer_belief_boss": 4,
                 "chatgpt_interpersonal": 4,
                 "chatgpt_feedback": 4,
@@ -99,7 +96,7 @@ class PlayerBot(Bot):
                 "volunteer_hours": 5,
             }
 
-        yield pages.Demographics, {
+        yield Demographics, {
             "age": 25,
             "gender": "female",
             "ethnicity": "White",
@@ -111,5 +108,5 @@ class PlayerBot(Bot):
             "comments": "No comments.",
         }
 
-        yield pages.FinalStory
-        yield pages.ThankYouPage, {"email_address": "bot@example.com"}
+        yield FinalStory
+        yield ThankYouPage, {"email_address": "bot@example.com"}
