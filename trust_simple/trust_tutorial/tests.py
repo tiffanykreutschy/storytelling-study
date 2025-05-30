@@ -100,12 +100,12 @@ class PlayerBot(Bot):
 
         yield Demographics, {
             "age": 25,
-            "gender": "female",
-            "ethnicity": "White",
+            "gender": "Female",
+            "ethnicity": "Black or African American",
             "english_level": "Fluent",
-            "school_affiliation": "Columbia",
-            "program": "PhD",
-            "year": "3",
+            "school_affiliation": "Columbia Business School",
+            "program": "Undergrad",
+            "year": "Slightly",
             "participation_satisfaction": 5,
             "comments": "No comments.",
         }
