@@ -2,6 +2,8 @@ from otree.api import Bot, Submission
 import random
 import json
 
+from . import IntroductionPage, FirstChapterIntroduction, EyesTask, Results, SecondChapter, TaskInstructions, WriteStory, ReadingTime, ProvideFeedback, ViewFeedback, ReviseStory, FeedbackGiverQuestions, FeedbackGiverQuestions2, FeedbackGiverQuestions3, WriterFinalQuestions, WriterFinalQuestions2, WriterFinalQuestions3, Demographics, FinalStory, ThankYouPage
+
 class PlayerBot(Bot):
     def play_round(self):
         yield IntroductionPage, {'consent_given': True}
