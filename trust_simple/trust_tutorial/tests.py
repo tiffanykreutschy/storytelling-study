@@ -16,7 +16,7 @@ class PlayerBot(Bot):
         yield TaskInstructions
 
         if self.player.id_in_group == 1:
-            yield Submission(pages.WriteStory, {
+            yield Submission(WriteStory, {
                 'story_text': 'This is a test story written by Player 1.'
             }, check_html=False)
 
