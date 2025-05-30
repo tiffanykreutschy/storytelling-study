@@ -1083,7 +1083,7 @@ class Demographics(Page):
     ]
 
     def error_message(player, values):
-        if values['charity_volunteer'] == 'Yes' and values['volunteer_hours'] is None:
+        if values.get('charity_volunteer') == 'Yes' and values.get('volunteer_hours') is None:
             return "Please tell us how many hours you volunteer annually."
 
 class WaitForWriter(WaitPage):
