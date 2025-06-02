@@ -382,16 +382,16 @@ class Player(BasePlayer):
             [7, "Very conservative"],
         ],
     )
-    #charity_donation_frequency = models.IntegerField(
-    #    label="How often do you donate to a charity?",
-    #    choices=[
-    #        [1, "Never"],
-    #        [2, "Once or twice a year"],
-    #        [3, "Three to four times a year"],
-    #        [4, "Five to six times a year"],
-    #    ],
-    #    widget=widgets.RadioSelectHorizontal,
-    #)
+    charity_donation_frequency = models.IntegerField(
+        label="How often do you donate to a charity?",
+        choices=[
+            [1, "Never"],
+            [2, "Once or twice a year"],
+            [3, "Three to four times a year"],
+            [4, "Five to six times a year"],
+        ],
+        widget=widgets.RadioSelectHorizontal,
+    )
     charity_volunteer = models.BooleanField(
         label="Do you volunteer for charity?",
         widget=widgets.RadioSelectHorizontal,
@@ -1110,7 +1110,7 @@ class FeedbackGiverQuestions3(Page):
         "use_ai_frequency",
         "risk_taker",
         "political_stance",
-        #"charity_donation_frequency",
+        "charity_donation_frequency",
         "charity_volunteer",
         "volunteer_hours",
     ]
@@ -1163,7 +1163,7 @@ class WriterFinalQuestions3(Page):
         "use_ai_frequency",
         "risk_taker",
         "political_stance",
-        #"charity_donation_frequency",
+        "charity_donation_frequency",
         "charity_volunteer",
         "volunteer_hours",
     ]
