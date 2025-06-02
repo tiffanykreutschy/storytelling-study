@@ -64,8 +64,8 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     mode_ai_use = models.IntegerField(blank=True)
     mean_willing_to_pay = models.FloatField(blank=True)
-    mode_writer_teammate = models.StringField(blank=True)
-    mode_writer_boss = models.StringField(blank=True)
+    mode_writer_teammate = models.IntegerField(blank=True)
+    mode_writer_boss = models.IntegerField(blank=True)
 
 class Group(BaseGroup):
     story_text = models.LongStringField(label="Write a short story:")
@@ -605,27 +605,27 @@ class Player(BasePlayer):
     )
 
     # Writer preferences: teammate feedback
-    writer_preference_teammate = models.StringField(
-        choices=["Harsher from non-AI", "Softer with help of AI"],
+    writer_preference_teammate = models.IntegerField(
+        choices=[[1, "Harsher from non-AI"], [2, "Softer with help of AI"]],
         label="Would you rather receive harsher feedback from a teammate who doesn’t use AI or less harsh feedback from a teammate who uses AI?",
         widget=widgets.RadioSelect
     )
 
-    writer_belief_teammate = models.StringField(
-        choices=["Harsher from non-AI", "Softer with help of AI"],
+    writer_belief_teammate = models.IntegerField(
+        choices=[[1, "Harsher from non-AI"], [2, "Softer with help of AI"]],
         label="What do you think most participants would prefer: harsher feedback from a teammate who doesn’t use AI or less harsh feedback from a teammate who uses AI?",
         widget=widgets.RadioSelect
     )
 
     # Writer preferences: boss feedback
-    writer_preference_boss = models.StringField(
-        choices=["Harsher from non-AI", "Softer with help of AI"],
+    writer_preference_boss = models.IntegerField(
+        choices=[[1, "Harsher from non-AI"], [2, "Softer with help of AI"]],
         label="Would you rather receive harsher feedback from a boss who doesn’t use AI or less harsh feedback from a boss who uses AI?",
         widget=widgets.RadioSelect
     )
 
-    writer_belief_boss = models.StringField(
-        choices=["Harsher from non-AI", "Softer with help of AI"],
+    writer_belief_boss = models.IntegerField(
+        choices=[[1, "Harsher from non-AI"], [2, "Softer with help of AI"]],
         label="What do you think most participants would prefer: harsher feedback from a boss who doesn’t use AI or less harsh feedback from a boss who uses AI?",
         widget=widgets.RadioSelect
     )
@@ -771,6 +771,37 @@ def calculate_mode_and_mean(subsession):
         subsession.mean_willing_to_pay = sum(wtp_values) / len(wtp_values)
     else:
         subsession.mean_willing_to_pay = 0.0  # Default to 0 if no data
+
+def calculate_writer_modes(subsession):
+    """ Compute the mode of writer belief responses for teammate and boss (Player 1 only). """
+
+    players_p1 = [p for p in subsession.get_players() if p.id_in_group == 1]
+
+    # Mode for teammate belief
+    teammate_responses = [
+        p.field_maybe_none("writer_belief_teammate") for p in players_p1
+        if p.field_maybe_none("writer_belief_teammate") is not None
+    ]
+    if teammate_responses:
+        try:
+            subsession.mode_writer_teammate = mode(teammate_responses)
+        except:
+            subsession.mode_writer_teammate = random.choice(teammate_responses)
+    else:
+        subsession.mode_writer_teammate = 1  # Default or fallback value
+
+    # Mode for boss belief
+    boss_responses = [
+        p.field_maybe_none("writer_belief_boss") for p in players_p1
+        if p.field_maybe_none("writer_belief_boss") is not None
+    ]
+    if boss_responses:
+        try:
+            subsession.mode_writer_boss = mode(boss_responses)
+        except:
+            subsession.mode_writer_boss = random.choice(boss_responses)
+    else:
+        subsession.mode_writer_boss = 1  # Default or fallback value
 
 def set_final_payoff(player: Player):
     subsession = player.subsession
@@ -1157,8 +1188,12 @@ class Demographics(Page):
         if values.get('charity_volunteer') == 'Yes' and values.get('volunteer_hours') is None:
             return "Please tell us how many hours you volunteer annually."
 
+def compute_all_modes(subsession):
+    calculate_mode_and_mean(subsession)
+    calculate_writer_modes(subsession)
+
 class WaitForWriter(WaitPage):
-    after_all_players_arrive = "calculate_mode_and_mean"
+    after_all_players_arrive = compute_all_modes
 
     title_text = "Waiting for Your Teammate"
     body_text = (
@@ -1267,6 +1302,7 @@ class FinalPayoffWaitPage(WaitPage):
     @staticmethod
     def after_all_players_arrive(subsession: Subsession):
         calculate_mode_and_mean(subsession)
+        calculate_writer_modes(subsession)
         set_final_payoffs(subsession)
 
 # Display order of the pages
