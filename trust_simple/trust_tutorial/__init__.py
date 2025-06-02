@@ -1270,9 +1270,7 @@ class FinalPayoffWaitPage(WaitPage):
     @staticmethod
     def after_all_players_arrive(subsession: Subsession):
         calculate_mode_and_mean(subsession)
-        calculate_writer_modes(subsession)
         set_final_payoffs(subsession)
-
 
 # Display order of the pages
 page_sequence = [
