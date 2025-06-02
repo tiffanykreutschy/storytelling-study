@@ -740,6 +740,9 @@ def set_final_payoff(player: Player):
         except:
             mode_boss = boss_beliefs[0] if boss_beliefs else None
 
+        subsession.mode_writer_teammate = mode_teammate
+        subsession.mode_writer_boss = mode_boss
+
         writer_teammate = player.field_maybe_none("writer_belief_teammate")
         writer_boss = player.field_maybe_none("writer_belief_boss")
 
@@ -1196,8 +1199,8 @@ class FinalPayoffWaitPage(WaitPage):
     @staticmethod
     def after_all_players_arrive(subsession: Subsession):
         calculate_mode_and_mean(subsession)
+        calculate_writer_modes(subsession)
         set_final_payoffs(subsession)
-
 
 
 # Display order of the pages
