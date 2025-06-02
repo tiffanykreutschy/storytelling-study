@@ -7,7 +7,6 @@ from final_save import FinalSavePage
 from . import Constants
 
 class PlayerBot(Bot):
-
     def play_round(self):
         yield IntroductionPage, {'consent_given': True}
         yield FirstChapterIntroduction
