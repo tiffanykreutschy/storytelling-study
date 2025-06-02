@@ -111,6 +111,7 @@ class PlayerBot(Bot):
                 "use_ai_frequency": random.randint(1, 7),
                 "risk_taker": random.randint(1, 7),
                 "political_stance": random.randint(1, 7),
+                "charity_donation_frequency": random.choice([1, 4]),
                 "charity_volunteer": random.choice([1, 2]),
                 "volunteer_hours": random.choice([1, 2, 3, 4, 5, 6]),
             }
