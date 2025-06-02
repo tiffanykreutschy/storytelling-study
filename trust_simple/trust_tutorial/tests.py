@@ -7,7 +7,12 @@ from final_save import FinalSavePage
 from . import Constants
 
 class PlayerBot(Bot):
+
     def play_round(self):
+        # Assign treatment only for bots (otherwise sometimes they can skip it for some reason)
+        if not self.player.treatment:
+            self.player.treatment = random.choice(['ai', 'raw'])
+
         yield IntroductionPage, {'consent_given': True}
         yield FirstChapterIntroduction
 
