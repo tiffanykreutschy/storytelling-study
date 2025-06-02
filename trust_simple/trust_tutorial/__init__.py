@@ -62,10 +62,10 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    mode_ai_use = models.IntegerField(blank=True)
-    mean_willing_to_pay = models.FloatField(blank=True)
-    mode_writer_teammate = models.IntegerField(blank=True,null=True)
-    mode_writer_boss = models.IntegerField(blank=True,null=True)
+    mode_ai_use = models.IntegerField(blank=True, null=True)
+    mean_willing_to_pay = models.FloatField(blank=True, null=True)
+    mode_writer_teammate = models.IntegerField(blank=True, null=True)
+    mode_writer_boss = models.IntegerField(blank=True, null=True)
 
 class Group(BaseGroup):
     story_text = models.LongStringField(label="Write a short story:")

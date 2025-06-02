@@ -49,10 +49,10 @@ class PlayerBot(Bot):
             }
             yield FeedbackGiverQuestions2, {
                 "ai_use_beliefs": random.randint(1, 7),
-                "willing_to_pay_for_ai": round(random.uniform(0.5, 5.0), 2),
+                "willing_to_pay_for_ai": random.randint(1, 10),
             }
             yield FeedbackGiverQuestions3, {
-                "beliefs_willing_to_pay_for_ai": round(random.uniform(0.5, 5.0), 2),
+                "beliefs_willing_to_pay_for_ai": random.randint(1, 10),
                 "chatgpt_interpersonal": random.randint(1, 7),
                 "chatgpt_feedback": random.randint(1, 7),
                 "chatgpt_cognitive": random.randint(1, 7),
