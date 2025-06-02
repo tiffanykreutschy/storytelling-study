@@ -4,14 +4,29 @@ import json
 
 from . import IntroductionPage, FirstChapterIntroduction, EyesTask, Results, SecondChapter, TaskInstructions, WriteStory, ReadingTime, ProvideFeedback, ViewFeedback, ReviseStory, FeedbackGiverQuestions, FeedbackGiverQuestions2, FeedbackGiverQuestions3, WriterFinalQuestions, WriterFinalQuestions2, WriterFinalQuestions3, Demographics, FinalStory, ThankYouPage
 from final_save import FinalSavePage
+from . import Constants
 
 class PlayerBot(Bot):
     def play_round(self):
         yield IntroductionPage, {'consent_given': True}
         yield FirstChapterIntroduction
+
+        responses = []
+        for i in range(36):
+            correct = Constants.images[i]['correct']
+            # With 50% probability choose correct answer, else pick incorrect
+            if random.random() < 0.5:
+                responses.append(correct)
+            else:
+                # Pick an incorrect option from the remaining choices
+                all_choices = ['choice1', 'choice2', 'choice3', 'choice4']
+                incorrect = random.choice([c for c in all_choices if c != correct])
+                responses.append(incorrect)
+
         yield Submission(EyesTask, {
-            'responses': json.dumps([random.choice(['choice1', 'choice2', 'choice3', 'choice4']) for _ in range(36)])
+            'responses': json.dumps(responses)
         }, check_html=False)
+
         yield Results
         yield SecondChapter
         yield TaskInstructions
@@ -62,6 +77,7 @@ class PlayerBot(Bot):
                 "use_ai_frequency": random.randint(1, 7),
                 "risk_taker": random.randint(1, 7),
                 "political_stance": random.randint(1, 7),
+                "charity_donation_frequency": random.choice([1, 4]),
                 "charity_volunteer": random.choice([1, 2]),
                 "volunteer_hours": random.choice([1, 2, 3, 4, 5, 6]),
             }
