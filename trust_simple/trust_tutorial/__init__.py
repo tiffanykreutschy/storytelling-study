@@ -484,53 +484,124 @@ class Player(BasePlayer):
     # Writer fields
     constructive_feedback_received = models.IntegerField(
         label="How constructive was the feedback you received?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Very destructive"],
+            [2, "Destructive"],
+            [3, "Somewhat destructive"],
+            [4, "Neutral"],
+            [5, "Somewhat constructive"],
+            [6, "Constructive"],
+            [7, "Very constructive"],
+        ],
     )
     relevant_feedback_received = models.IntegerField(
         label="How relevant was the feedback you received?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Very irrelevant"],
+            [2, "Irrelevant"],
+            [3, "Somewhat irrelevant"],
+            [4, "Neutral"],
+            [5, "Somewhat relevant"],
+            [6, "Relevant"],
+            [7, "Very relevant"],
+        ],
     )
     helpful_communication_received = models.IntegerField(
         label="To what extent was feedback you received communicated in a helpful way?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Very unhelpful"],
+            [2, "Unhelpful"],
+            [3, "Somewhat unhelpful"],
+            [4, "Neutral"],
+            [5, "Somewhat helpful"],
+            [6, "Helpful"],
+            [7, "Very helpful"],
+        ],
     )
     agreeable_tone_received = models.IntegerField(
         label="How agreeable was the tone of the advice you received?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Very disagreeable"],
+            [2, "Disagreeable"],
+            [3, "Somewhat disagreeable"],
+            [4, "Neutral"],
+            [5, "Somewhat agreeable"],
+            [6, "Agreeable"],
+            [7, "Very agreeable"],
+        ],
     )
     harsh_feedback_received = models.IntegerField(
         label="How harsh was the feedback you received?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Very soft"],
+            [2, "Soft"],
+            [3, "Somewhat soft"],
+            [4, "Neutral"],
+            [5, "Somewhat harsh"],
+            [6, "Harsh"],
+            [7, "Very harsh"],
+        ],
     )
     rude_feedback_received = models.IntegerField(
         label="How rude was the feedback you received?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Very polite"],
+            [2, "Polite"],
+            [3, "Somewhat polite"],
+            [4, "Neutral"],
+            [5, "Somewhat rude"],
+            [6, "Rude"],
+            [7, "Very rude"],
+        ],
     )
     collaborative_teammate_received = models.IntegerField(
         label="How collaborative was your teammate?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Very uncooperative"],
+            [2, "Uncooperative"],
+            [3, "Somewhat uncooperative"],
+            [4, "Neutral"],
+            [5, "Somewhat collaborative"],
+            [6, "Collaborative"],
+            [7, "Very collaborative"],
+        ],
     )
+
     feedback_shaped_final_story = models.IntegerField(
         label="To what extent do you believe the feedback you received shaped the final story?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Not at all"],
+            [2, "Slightly"],
+            [3, "Somewhat"],
+            [4, "Neutral"],
+            [5, "Fairly"],
+            [6, "Very"],
+            [7, "Totally"],
+        ],
     )
     satisfaction_with_interactions_received = models.IntegerField(
         label="How satisfied are you with the interactions with your teammate?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Not at all"],
+            [2, "Slightly"],
+            [3, "Somewhat"],
+            [4, "Neutral"],
+            [5, "Fairly"],
+            [6, "Very"],
+            [7, "Totally"],
+        ],
     )
     work_with_teammate_again_received = models.IntegerField(
         label="If paired in another experiment, would you choose to work with this teammate again?",
-        choices=[[1, "Strongly Disagree"], [2, "Disagree"], [3, "Somewhat Disagree"], [4, "Neutral"],
-                 [5, "Somewhat Agree"], [6, "Agree"], [7, "Strongly Agree"]],
+        choices=[
+            [1, "Not at all"],
+            [2, "Slightly"],
+            [3, "Somewhat"],
+            [4, "Neutral"],
+            [5, "Fairly"],
+            [6, "Very"],
+            [7, "Totally"],
+        ],
     )
 
     # Writer preferences: teammate feedback
@@ -978,8 +1049,8 @@ class FeedbackGiverQuestions(Page):
         "rude_feedback",
         "collaborative_teammate",
         "feedback_incorporation",
-        "satisfaction_with_interactions_received",
-        "work_with_teammate_again_received",
+        "satisfaction_with_interactions",
+        "work_with_teammate_again",
         "ai_use",
     ]
 
@@ -1026,9 +1097,9 @@ class WriterFinalQuestions(Page):
         "relevant_feedback_received",
         "helpful_communication_received",
         "agreeable_tone_received",
-        "harsh_feedback",
-        "rude_feedback",
-        "collaborative_teammate",
+        "harsh_feedback_received",
+        "rude_feedback_received",
+        "collaborative_teammate_received",
         "feedback_shaped_final_story",
         "satisfaction_with_interactions_received",
         "work_with_teammate_again_received",
