@@ -43,8 +43,8 @@ class PlayerBot(Bot):
                 "rude_feedback": 1,
                 "collaborative_teammate": 5,
                 "feedback_incorporation": 5,
-                "satisfaction_with_interactions_received": 5,
-                "work_with_teammate_again_received": 5,
+                "satisfaction_with_interactions": 5,
+                "work_with_teammate_again": 5,
                 "ai_use": 1,
             }
             yield FeedbackGiverQuestions2, {
