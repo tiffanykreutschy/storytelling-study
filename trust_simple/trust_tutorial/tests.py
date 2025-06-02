@@ -10,7 +10,7 @@ class PlayerBot(Bot):
         yield IntroductionPage, {'consent_given': True}
         yield FirstChapterIntroduction
         yield Submission(EyesTask, {
-            'responses': json.dumps(['choice1'] * 36)
+            'responses': json.dumps([random.choice(['choice1', 'choice2', 'choice3', 'choice4']) for _ in range(36)])
         }, check_html=False)
         yield Results
         yield SecondChapter
@@ -22,7 +22,7 @@ class PlayerBot(Bot):
             }, check_html=False)
 
         if self.player.id_in_group == 2:
-            yield ReadingTime  # If timer-based, omit or simulate timeout
+            yield ReadingTime
             yield Submission(ProvideFeedback, {
                 'feedback_text': 'This is automated feedback from the bot.'
             }, check_html=False)
@@ -35,83 +35,82 @@ class PlayerBot(Bot):
 
         if self.player.id_in_group == 2:
             yield FeedbackGiverQuestions, {
-                "constructive_feedback": 5,
-                "relevant_feedback": 5,
-                "helpful_communication": 5,
-                "agreeable_tone": 5,
-                "harsh_feedback": 1,
-                "rude_feedback": 1,
-                "collaborative_teammate": 5,
-                "feedback_incorporation": 5,
-                "satisfaction_with_interactions": 5,
-                "work_with_teammate_again": 5,
-                "ai_use": 1,
+                "constructive_feedback": random.randint(1, 7),
+                "relevant_feedback": random.randint(1, 7),
+                "helpful_communication": random.randint(1, 7),
+                "agreeable_tone": random.randint(1, 7),
+                "harsh_feedback": random.randint(1, 7),
+                "rude_feedback": random.randint(1, 7),
+                "collaborative_teammate": random.randint(1, 7),
+                "feedback_incorporation": random.randint(1, 7),
+                "satisfaction_with_interactions": random.randint(1, 7),
+                "work_with_teammate_again": random.randint(1, 7),
+                "ai_use": random.randint(1, 7),
             }
             yield FeedbackGiverQuestions2, {
-                "ai_use_beliefs": 4,
-                "willing_to_pay_for_ai": 4.50,
+                "ai_use_beliefs": random.randint(1, 7),
+                "willing_to_pay_for_ai": round(random.uniform(0.5, 5.0), 2),
             }
             yield FeedbackGiverQuestions3, {
-                "beliefs_willing_to_pay_for_ai": 3.50,
-                "chatgpt_interpersonal": 4,
-                "chatgpt_feedback": 4,
-                "chatgpt_cognitive": 4,
-                "chatgpt_manual": 3,
-                "chatgpt_routine": 3,
-                "chatgpt_non_routine": 4,
-                "use_ai_frequency": 4,
-                "risk_taker": 3,
-                "political_stance": 3,
-                "charity_volunteer": 1,
-                "volunteer_hours": 2,
+                "beliefs_willing_to_pay_for_ai": round(random.uniform(0.5, 5.0), 2),
+                "chatgpt_interpersonal": random.randint(1, 7),
+                "chatgpt_feedback": random.randint(1, 7),
+                "chatgpt_cognitive": random.randint(1, 7),
+                "chatgpt_manual": random.randint(1, 7),
+                "chatgpt_routine": random.randint(1, 7),
+                "chatgpt_non_routine": random.randint(1, 7),
+                "use_ai_frequency": random.randint(1, 7),
+                "risk_taker": random.randint(1, 7),
+                "political_stance": random.randint(1, 7),
+                "charity_volunteer": random.choice([1, 2]),
+                "volunteer_hours": random.choice([1, 2, 3, 4, 5, 6]),
             }
 
         if self.player.id_in_group == 1:
             yield WriterFinalQuestions, {
-                "constructive_feedback_received": 4,
-                "relevant_feedback_received": 4,
-                "helpful_communication_received": 4,
-                "agreeable_tone_received": 4,
-                "harsh_feedback_received": 2,
-                "rude_feedback_received": 1,
-                "collaborative_teammate_received": 5,
-                "feedback_shaped_final_story": 1,
-                "satisfaction_with_interactions_received": 4,
-                "work_with_teammate_again_received": 1,
-                "writer_preference_teammate": 1,
+                "constructive_feedback_received": random.randint(1, 7),
+                "relevant_feedback_received": random.randint(1, 7),
+                "helpful_communication_received": random.randint(1, 7),
+                "agreeable_tone_received": random.randint(1, 7),
+                "harsh_feedback_received": random.randint(1, 7),
+                "rude_feedback_received": random.randint(1, 7),
+                "collaborative_teammate_received": random.randint(1, 7),
+                "feedback_shaped_final_story": random.randint(1, 7),
+                "satisfaction_with_interactions_received": random.randint(1, 7),
+                "work_with_teammate_again_received": random.randint(1, 7),
+                "writer_preference_teammate": random.choice([1, 2]),
             }
             yield WriterFinalQuestions2, {
-                "writer_belief_teammate": 2,
-                "writer_preference_boss": 1,
+                "writer_belief_teammate": random.choice([1, 2]),
+                "writer_preference_boss": random.choice([1, 2]),
             }
             yield WriterFinalQuestions3, {
-                "writer_belief_boss": 2,
-                "chatgpt_interpersonal": 4,
-                "chatgpt_feedback": 4,
-                "chatgpt_cognitive": 5,
-                "chatgpt_manual": 2,
-                "chatgpt_routine": 3,
-                "chatgpt_non_routine": 4,
-                "use_ai_frequency": 3,
-                "risk_taker": 4,
-                "political_stance": 3,
-                "charity_volunteer": 1,
-                "volunteer_hours": 5,
+                "writer_belief_boss": random.choice([1, 2]),
+                "chatgpt_interpersonal": random.randint(1, 7),
+                "chatgpt_feedback": random.randint(1, 7),
+                "chatgpt_cognitive": random.randint(1, 7),
+                "chatgpt_manual": random.randint(1, 7),
+                "chatgpt_routine": random.randint(1, 7),
+                "chatgpt_non_routine": random.randint(1, 7),
+                "use_ai_frequency": random.randint(1, 7),
+                "risk_taker": random.randint(1, 7),
+                "political_stance": random.randint(1, 7),
+                "charity_volunteer": random.choice([1, 2]),
+                "volunteer_hours": random.choice([1, 2, 3, 4, 5, 6]),
             }
 
         yield Demographics, {
-            "age": 25,
-            "gender": "Female",
-            "ethnicity": "Black or African American",
+            "age": random.choice([18, 24, 24, 26, 27, 28, 35]),
+            "gender": random.choice(["Female", "Male", "Other"]),
+            "ethnicity": random.choice(["Black or African American", "Black or African American", "Hispanic"]),
             "english_level": "Fluent",
             "school_affiliation": "Columbia Business School",
-            "program": "Undergrad",
-            "year": "1st",
-            "participation_satisfaction": 5,
-            "comments": "No comments.",
+            "program": random.choice(["Undergrad", "MBA", "PhD"]),
+            "year": random.choice(["1st", "2nd", "3rd", "4th"]),
+            "participation_satisfaction": random.randint(1, 5),
+            "comments": "Bot test run.",
         }
 
         yield FinalStory
         yield ThankYouPage
-        yield FinalSavePage, {"email_address": "bot@example.com"}
-
+        yield FinalSavePage, {"email_address": f"bot_{self.player.id_in_group}@example.com"}

@@ -27,7 +27,7 @@ SESSION_CONFIGS = [
         name='feedback_study',
         display_name="Feedback Study",
         app_sequence=['trust_tutorial', 'final_save'],
-        num_demo_participants=2,
+        num_demo_participants=50,
     ),
 ]
 
