@@ -105,7 +105,7 @@ class PlayerBot(Bot):
             "ethnicity": random.choice(["Black or African American", "Black or African American", "Hispanic"]),
             "english_level": "Fluent",
             "school_affiliation": "Columbia Business School",
-            "program": random.choice(["Undergrad", "MBA", "PhD"]),
+            "program": random.choice(["Undergrad", "MBA"]),
             "year": random.choice(["1st", "2nd", "3rd", "4th"]),
             "participation_satisfaction": random.randint(1, 5),
             "comments": "Bot test run.",
