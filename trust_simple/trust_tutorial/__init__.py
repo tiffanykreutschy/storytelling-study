@@ -1110,6 +1110,7 @@ class FeedbackGiverQuestions3(Page):
         "use_ai_frequency",
         "risk_taker",
         "political_stance",
+        "charity_donation_frequency",
         "charity_volunteer",
         "volunteer_hours",
     ]
@@ -1162,6 +1163,7 @@ class WriterFinalQuestions3(Page):
         "use_ai_frequency",
         "risk_taker",
         "political_stance",
+        "charity_donation_frequency",
         "charity_volunteer",
         "volunteer_hours",
     ]
