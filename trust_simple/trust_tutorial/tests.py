@@ -22,10 +22,13 @@ class PlayerBot(Bot):
             }, check_html=False)
 
         if self.player.id_in_group == 2:
-            yield ReadingTime  # If timer-based, omit or simulate timeout
+            yield ReadingTime
             yield Submission(ProvideFeedback, {
                 'feedback_text': 'This is automated feedback from the bot.'
             }, check_html=False)
+
+            # ⛔ Force feedback to stay raw to avoid calling GPT
+            self.group.display_condition = "raw"
 
         if self.player.id_in_group == 1:
             yield ViewFeedback
