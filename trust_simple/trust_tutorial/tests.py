@@ -97,14 +97,14 @@ class PlayerBot(Bot):
                 "feedback_shaped_final_story": 1,
                 "satisfaction_with_interactions_received": 4,
                 "work_with_teammate_again_received": 1,
-                "writer_preference_teammate": "Harsher from non-AI",
+                "writer_preference_teammate": 1,
             }
             yield WriterFinalQuestions2, {
-                "writer_belief_teammate": "Harsher from non-AI",
-                "writer_preference_boss": "Harsher from non-AI",
+                "writer_belief_teammate": 2,
+                "writer_preference_boss": 2,
             }
             yield WriterFinalQuestions3, {
-                "writer_belief_boss": "Harsher from non-AI",
+                "writer_belief_boss": 1,
                 "chatgpt_interpersonal": 4,
                 "chatgpt_feedback": 4,
                 "chatgpt_cognitive": 5,
