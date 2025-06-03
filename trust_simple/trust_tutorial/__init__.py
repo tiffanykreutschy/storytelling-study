@@ -635,16 +635,15 @@ class Player(BasePlayer):
     )
 
 class WaitAfterConsent(WaitPage):
-    group_by_arrival_time = True
-    wait_for_all_groups = False
+    group_by_arrival_time = True  # dynamic pairing
+    wait_for_all_groups = False   # implied, safe
 
     @staticmethod
-    def after_all_players_arrive(subsession: Subsession):
-        subsession.group_randomly()
-        for group in subsession.get_groups():
-            group.display_condition = random.choice(["raw", "improved"])
-            for p in group.get_players():
-                p.assigned_role = "writer" if p.id_in_group == 1 else "feedback_giver"
+    def after_all_players_arrive(group: Group):
+        import random
+        group.display_condition = random.choice(["raw", "improved"])
+        for p in group.get_players():
+            p.assigned_role = "writer" if p.id_in_group == 1 else "feedback_giver"
 
 # FUNCTIONS
 def calculate_correct_answers(self):
