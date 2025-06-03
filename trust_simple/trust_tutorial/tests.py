@@ -62,7 +62,7 @@ class PlayerBot(Bot):
                 "use_ai_frequency": 4,
                 "risk_taker": 3,
                 "political_stance": 3,
-                "charity_donation_frequency": 2,
+                #"charity_donation_frequency": 2,
                 "charity_volunteer": 1,
                 "volunteer_hours": 2,
             }
@@ -96,7 +96,7 @@ class PlayerBot(Bot):
                 "use_ai_frequency": 3,
                 "risk_taker": 4,
                 "political_stance": 3,
-                "charity_donation_frequency": 2,
+                #"charity_donation_frequency": 2,
                 "charity_volunteer": 1,
                 "volunteer_hours": 5,
             }
