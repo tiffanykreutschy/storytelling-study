@@ -392,8 +392,12 @@ class Player(BasePlayer):
         ],
         widget=widgets.RadioSelectHorizontal,
     )
-    charity_volunteer = models.BooleanField(
+    charity_volunteer = models.IntegerField(
         label="Do you volunteer for charity?",
+        choices=[
+            [1, "Yes"],
+            [2, "No"],
+        ],
         widget=widgets.RadioSelectHorizontal,
     )
     volunteer_hours = models.IntegerField(

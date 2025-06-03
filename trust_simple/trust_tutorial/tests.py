@@ -120,9 +120,9 @@ class PlayerBot(Bot):
             }
 
         yield Demographics, {
-            "age": random.choice([18, 24, 24, 26, 27, 28, 35]),
+            "age": random.choice([18, 24, 26, 27]),
             "gender": random.choice(["Female", "Male", "Other"]),
-            "ethnicity": random.choice(["Black or African American", "Black or African American", "Hispanic"]),
+            "ethnicity": random.choice(["Black or African American", "White / Caucasian", "Hispanic"]),
             "english_level": "Fluent",
             "school_affiliation": "Columbia Business School",
             "program": random.choice(["Undergrad", "MBA"]),
