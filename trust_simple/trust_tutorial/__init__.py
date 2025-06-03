@@ -635,23 +635,17 @@ class Player(BasePlayer):
     )
 
 class WaitAfterConsent(WaitPage):
-    # DO NOT set wait_for_all_groups = True
+    group_by_arrival_time = True
+    wait_for_all_groups = False
+
     @staticmethod
     def after_all_players_arrive(subsession: Subsession):
-        # Filter only consenting players
-        consenting_players = [p for p in subsession.get_players() if p.consent_given]
-
-        # Group them in pairs (only complete groups)
-        complete_groups = [consenting_players[i:i + 2] for i in range(0, len(consenting_players), 2) if len(consenting_players[i:i + 2]) == 2]
-
-        # Set group matrix
-        subsession.set_group_matrix(complete_groups)
-
-        # Assign roles and condition
+        subsession.group_randomly()
         for group in subsession.get_groups():
             group.display_condition = random.choice(["raw", "improved"])
             for p in group.get_players():
                 p.assigned_role = "writer" if p.id_in_group == 1 else "feedback_giver"
+
 # FUNCTIONS
 def calculate_correct_answers(self):
     """Calculate the number of correct answers and set the bonus."""
