@@ -1,9 +1,6 @@
 from otree.api import Bot, Submission
 import random
 import json
-import openai
-import os
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 from . import IntroductionPage, FirstChapterIntroduction, EyesTask, Results, SecondChapter, TaskInstructions, WriteStory, ReadingTime, ProvideFeedback, ViewFeedback, ReviseStory, FeedbackGiverQuestions, FeedbackGiverQuestions2, FeedbackGiverQuestions3, WriterFinalQuestions, WriterFinalQuestions2, WriterFinalQuestions3, Demographics, FinalStory, ThankYouPage
 from final_save import FinalSavePage
