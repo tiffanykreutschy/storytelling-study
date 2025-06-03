@@ -635,19 +635,19 @@ class Player(BasePlayer):
     )
 
 class WaitAfterConsent(WaitPage):
+    # DO NOT set wait_for_all_groups = True
     @staticmethod
     def after_all_players_arrive(subsession: Subsession):
-        # Filter for only those who gave consent
+        # Filter only consenting players
         consenting_players = [p for p in subsession.get_players() if p.consent_given]
 
-        # Group them in pairs
-        grouped_players = [consenting_players[i:i + 2] for i in range(0, len(consenting_players), 2)]
+        # Group them in pairs (only complete groups)
+        complete_groups = [consenting_players[i:i + 2] for i in range(0, len(consenting_players), 2) if len(consenting_players[i:i + 2]) == 2]
 
-        # Only assign complete groups of 2
-        complete_groups = [group for group in grouped_players if len(group) == 2]
-
+        # Set group matrix
         subsession.set_group_matrix(complete_groups)
 
+        # Assign roles and condition
         for group in subsession.get_groups():
             group.display_condition = random.choice(["raw", "improved"])
             for p in group.get_players():
