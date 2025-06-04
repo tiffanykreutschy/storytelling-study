@@ -10,18 +10,21 @@
     <blockquote>{{ feedback }}</blockquote>
 </div>
 
-<div class="revision-container">
-    <textarea
-        id="revision_textarea"
-        name="revised_story"
-        rows="10"
-        cols="80"
-        placeholder="Revise your story here..."
-        oninput="updateWordCountAndLimit('revision_textarea', 'revision_word_count', 200)"
-        required
-    ></textarea>
-    <p id="revision_word_count">Word count: 0/200</p>
-</div>
+<form method="get">
+    <div class="revision-container">
+        <textarea
+            id="revision_textarea"
+            name="revised_story"
+            rows="10"
+            cols="80"
+            placeholder="Revise your story here..."
+            oninput="updateWordCountAndLimit('revision_textarea', 'revision_word_count', 200); syncRevisionText();"
+            required
+        ></textarea>
+        <input type="hidden" name="revised_story" id="revised_story_hidden">
+        <p id="revision_word_count">Word count: 0/200</p>
+    </div>
+</form>
 
 <!-- Display error message for revised_story if there are any -->
 <div class="error-message">
@@ -119,6 +122,20 @@
             counterElement.textContent = `Word count: ${maxWords}/${maxWords}`;
         }
     }
+</script>
+
+<script>
+    function syncRevisionText() {
+        const textarea = document.getElementById("revision_textarea");
+        const hiddenInput = document.getElementById("revised_story_hidden");
+        hiddenInput.value = textarea.value;
+    }
+
+    // Ensure it's synced one last time at timeout
+    setTimeout(() => {
+        syncRevisionText();
+        document.querySelector("form").submit();
+    }, 290000); // 4m50s for autosubmit
 </script>
 
 <style>

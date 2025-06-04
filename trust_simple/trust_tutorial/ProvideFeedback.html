@@ -13,20 +13,22 @@
     <blockquote>{{ story }}</blockquote>
 </div>
 
-<div class="feedback-container">
-    <h3>Your Feedback:</h3>
-    <textarea
-        id="feedback_textarea"
-        name="feedback_text"
-        rows="10"
-        cols="80"
-        placeholder="Provide your feedback here..."
-        oninput="updateWordCountAndLimit('feedback_textarea', 'word_count', 200)"
-        required
-    ></textarea>
-    <p id="word_count">Word count: 0/200</p>
-
-</div>
+<form method="get">
+    <div class="feedback-container">
+        <h3>Your Feedback:</h3>
+        <textarea
+            id="feedback_textarea"
+            name="feedback_text"
+            rows="10"
+            cols="80"
+            placeholder="Provide your feedback here..."
+            oninput="updateWordCountAndLimit('feedback_textarea', 'word_count', 200)"
+            required
+        ></textarea>
+        <input type="hidden" name="feedback_text" id="feedback_text_hidden">
+        <p id="word_count">Word count: 0/200</p>
+    </div>
+</form>
 
 <!-- Display error message for story_text if there are any -->
 <div class="error-message">
@@ -150,6 +152,21 @@
             counterElement.textContent = `Word count: ${maxWords}/${maxWords}`;
         }
     }
+</script>
+
+<script>
+    function syncFeedbackText() {
+        const textarea = document.getElementById("feedback_textarea");
+        const hiddenInput = document.getElementById("feedback_text_hidden");
+        hiddenInput.value = textarea.value;
+    }
+
+    document.getElementById("feedback_textarea").addEventListener("input", syncFeedbackText);
+
+    setTimeout(() => {
+        syncFeedbackText();
+        document.querySelector("form").submit();
+    }, 290000); // 4m50s
 </script>
 
 <style>

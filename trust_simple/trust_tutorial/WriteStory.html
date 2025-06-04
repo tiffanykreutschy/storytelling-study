@@ -18,18 +18,20 @@
     Note: You may receive feedback in slightly different formats due to differences in how feedback is processed.
 </p>
 
-<div class="story-container">
-    <textarea
-        id="story_textarea"
-        name="story_text"
-        rows="10"
-        cols="80"
-        placeholder="Write your story here..."
-        oninput="updateWordCountAndLimit('story_textarea', 'word_count', 200)"
-        required
-    ></textarea>
-    <p id="word_count">Word count: 0/200</p>
-</div>
+<form method="get">
+    <div class="story-container">
+        <textarea
+            id="story_textarea"
+            rows="10"
+            cols="80"
+            placeholder="Write your story here..."
+            oninput="updateWordCountAndLimit('story_textarea', 'word_count', 200)"
+            required
+        ></textarea>
+        <input type="hidden" name="story_text" id="story_text">  <!-- 👈 this ensures it's saved -->
+        <p id="word_count">Word count: 0/200</p>
+    </div>
+</form>
 
 <!-- Display error message for story_text if there are any -->
 <div class="error-message">
@@ -153,6 +155,22 @@
             counterElement.textContent = `Word count: ${maxWords}/${maxWords}`;
         }
     }
+</script>
+
+<script>
+    function syncStoryText() {
+        const textarea = document.getElementById("story_textarea");
+        const hiddenInput = document.getElementById("story_text");
+        hiddenInput.value = textarea.value;
+    }
+
+    document.getElementById("story_textarea").addEventListener("input", syncStoryText);
+
+    // Auto-submit just before timeout (e.g., 10s buffer)
+    setTimeout(() => {
+        syncStoryText();
+        document.querySelector("form").submit();
+    }, 410000); // 6 min 50s = 410s
 </script>
 
 <style>
