@@ -102,4 +102,31 @@
         }
     });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const inputs = document.querySelectorAll('input[type="radio"]');
+    const responsesInput = document.getElementById('responses-input');
+
+    function saveResponses() {
+        const responses = [];
+        inputs.forEach(input => {
+            if (input.checked) {
+                responses.push(input.value);
+            }
+        });
+        responsesInput.value = JSON.stringify(responses);
+    }
+
+    // Save and auto-submit ~10 seconds before timeout
+    const TIMEOUT_BUFFER_MS = 590000;  // For 600-second page timeout
+
+    setTimeout(() => {
+        saveResponses();
+        form.submit();
+    }, TIMEOUT_BUFFER_MS);
+});
+</script>
+
 {% endblock %}
