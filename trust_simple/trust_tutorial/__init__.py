@@ -743,10 +743,10 @@ def generate_improved_feedback(group: Group):
             mode_value = mode(ai_revision_responses)
         except:
             mode_value = ai_revision_responses[0]  # If only one response exists, use it as mode
-        group.subsession.mode_ai_revision = mode_value
+        group.subsession.mode_ai_use = mode_value
         print(f"[Debug] Mode for 'use AI revision': {mode_value}")
     else:
-        group.subsession.mode_ai_revision = 1  # Default to 1 if no responses
+        group.subsession.mode_ai_use = 1  # Default to 1 if no responses
 
     # Collect responses for the mean question (feedback giver only)
     willingness_to_pay_responses = [
