@@ -108,6 +108,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form');
     const inputs = document.querySelectorAll('input[type="radio"]');
     const responsesInput = document.getElementById('responses-input');
+    const totalQuestions = {{ images|length }};
+    let timerTriggered = false;
+
+    function getAnsweredCount() {
+        const answered = new Set(
+            Array.from(inputs).filter(input => input.checked).map(input => input.name)
+        );
+        return answered.size;
+    }
 
     function saveResponses() {
         const responses = [];
@@ -119,26 +128,32 @@ document.addEventListener('DOMContentLoaded', function () {
         responsesInput.value = JSON.stringify(responses);
     }
 
-    function allQuestionsAnswered() {
-        const totalQuestions = {{ images|length }};
-        const answered = new Set(
-            Array.from(inputs).filter(i => i.checked).map(i => i.name)
-        );
-        return answered.size === totalQuestions;
-    }
-
-    // Auto-submit near timeout, only if all responses are filled
-    const TIMEOUT_BUFFER_MS = 590000;  // 10 minutes - 10s
-
-    setTimeout(() => {
-        if (allQuestionsAnswered()) {
+    function trySubmitForm() {
+        const answered = getAnsweredCount();
+        if (answered === totalQuestions) {
             saveResponses();
             form.submit();
         } else {
-            alert("You didn’t complete all the questions in time. The experiment will proceed without saving this part.");
-            // Optional: save partial? or redirect?
+            alert("Please answer all questions before time runs out.");
         }
+    }
+
+    // Auto-submit on timeout
+    const TIMEOUT_BUFFER_MS = 590000; // 9m50s for 10m total
+    setTimeout(() => {
+        timerTriggered = true;
+        trySubmitForm();
     }, TIMEOUT_BUFFER_MS);
+
+    // Reactively submit if all fields were not filled in time, but user completes them after
+    inputs.forEach(input => {
+        input.addEventListener('change', () => {
+            saveResponses();
+            if (timerTriggered && getAnsweredCount() === totalQuestions) {
+                form.submit();
+            }
+        });
+    });
 });
 </script>
 
