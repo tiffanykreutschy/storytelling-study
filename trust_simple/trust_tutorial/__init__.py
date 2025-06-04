@@ -719,7 +719,7 @@ def generate_improved_feedback(group: Group):
         print(f"Error generating improved feedback: {e}")
         group.improved_feedback = f"Error: {e}"
 
-# Collect responses for the mode question (feedback giver only)
+    # Collect responses for the mode question (feedback giver only)
     ai_revision_responses = [
         p.ai_use_beliefs for p in group.subsession.get_players()
         if p.id_in_group == 2 and p.field_maybe_none('ai_use_beliefs') is not None
@@ -731,10 +731,10 @@ def generate_improved_feedback(group: Group):
             mode_value = mode(ai_revision_responses)
         except:
             mode_value = ai_revision_responses[0]  # If only one response exists, use it as mode
-        Subsession.mode_ai_revision = mode_value
+        group.subsession.mode_ai_revision = mode_value
         print(f"[Debug] Mode for 'use AI revision': {mode_value}")
     else:
-        Subsession.mode_ai_revision = 1  # Default to 1 if no responses
+        group.subsession.mode_ai_revision = 1  # Default to 1 if no responses
 
     # Collect responses for the mean question (feedback giver only)
     willingness_to_pay_responses = [
@@ -745,11 +745,10 @@ def generate_improved_feedback(group: Group):
     if willingness_to_pay_responses:
         # Calculate and store the mean
         mean_value = sum(willingness_to_pay_responses) / len(willingness_to_pay_responses)
-        Subsession.mean_willing_to_pay = mean_value
+        group.subsession.mean_willing_to_pay = mean_value
         print(f"[Debug] Mean for 'willing to pay for AI': {mean_value}")
     else:
-        Subsession.mean_willing_to_pay = 1.0  # Default to $1 if no responses
-
+        group.subsession.mean_willing_to_pay = 1.0  # Default to $1 if no responses
 
 def calculate_mode_and_mean(subsession):
     """ Compute the mode of ai_use and the mean of willing_to_pay_for_ai for P2 players. """
