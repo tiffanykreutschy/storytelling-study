@@ -75,6 +75,9 @@ class Group(BaseGroup):
     display_condition = models.StringField()  # To store raw or improved feedback condition
     feedback_to_show = models.LongStringField(blank=True)  # To store the feedback to be displayed
     #revised_story_complete = models.BooleanField(initial=False)  # Track revision completion
+    improved_feedback = models.LongStringField(blank=True)
+    display_condition = models.StringField(blank=True)  # 'ai' or 'raw'
+    crashed = models.IntegerField(initial=0)  # 1 if GPT failed
 
 class Player(BasePlayer):
     assigned_role = models.StringField(blank=True)
@@ -662,62 +665,71 @@ def calculate_correct_answers(self):
         self.bonus = 0.0
 
 def runGPT(messages):
-    try:
-        # Create OpenAI client
-        client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-        # Set up retry parameters
-        max_retries = 3
-        retry_delay = 5  # seconds
+    max_retries = 3
+    retry_delay = 5
 
-        for attempt in range(max_retries):
-            try:
-                # Call the new chat completion endpoint
-                response = client.chat.completions.create(
-                    messages=messages,
-                    #model="gpt-3.5-turbo",  # Update to your preferred model
-                    model="gpt-4",
-                    temperature=0,  # Adjust temperature as needed
-                    max_tokens=200  # Adjust token limit as needed
-                )
+    for attempt in range(max_retries):
+        try:
+            response = client.chat.completions.create(
+                messages=messages,
+                model="gpt-4",
+                temperature=0,
+                max_tokens=200
+            )
+            return response.choices[0].message.content
 
-                # Extract and return the first choice's content
-                return response.choices[0].message.content
+        except openai.error.RateLimitError:
+            if attempt < max_retries - 1:
+                print(f"Rate limit hit. Retrying in {retry_delay} seconds...")
+                time.sleep(retry_delay)
+            else:
+                print("Exceeded retry attempts due to rate limit.")
+                raise
 
-            except openai.error.RateLimitError:
-                if attempt < max_retries - 1:  # Retry if not the last attempt
-                    print(f"Rate limit hit. Retrying in {retry_delay} seconds...")
-                    time.sleep(retry_delay)
-                else:
-                    # If retries are exhausted
-                    print("Exceeded retry attempts due to rate limit.")
-                    return "There is a technical issue. Raise your hand."
+    # If all retries fail for other reasons
+    raise Exception("GPT call failed after retries")
 
-    except Exception as e:
-        print(f"Error calling OpenAI API: {e}")
-        return "There is a technical issue. Raise your hand."
+def creating_session(subsession: Subsession):
+    players_per_group = subsession.session.config.get("players_per_group", 2)
+    groups = subsession.get_groups()
 
+    num_ai = 0
+    num_raw = 0
+
+    for group in groups:
+        if num_ai > num_raw:
+            condition = 'raw'
+            num_raw += 1
+        elif num_raw > num_ai:
+            condition = 'ai'
+            num_ai += 1
+        else:
+            condition = random.choice(['ai', 'raw'])
+            if condition == 'ai':
+                num_ai += 1
+            else:
+                num_raw += 1
+
+        group.display_condition = condition
 
 def generate_improved_feedback(group: Group):
     try:
-        print("Generating improved feedback...")  # Debugging
-        # Construct the GPT messages
+        print("Generating improved feedback...")
         messages = [
             {"role": "system", "content": Constants.chatgpt_prompt},
             {"role": "user", "content": group.feedback_text},
         ]
-        # Call GPT
-        improved_feedback = runGPT(messages)
+        improved = runGPT(messages)
+        group.improved_feedback = improved
+        group.crashed = 0
 
-        # Assign the improved feedback to the group field
-        group.improved_feedback = improved_feedback
-
-        # Debugging
-        print(f"Original Feedback: {group.feedback_text}")
-        print(f"Improved Feedback: {group.improved_feedback}")
     except Exception as e:
-        print(f"Error generating improved feedback: {e}")
-        group.improved_feedback = f"Error: {e}"
+        print(f"GPT fallback: {e}")
+        group.improved_feedback = group.feedback_text
+        group.crashed = 1
+        group.display_condition = "raw"  # Force fallback
 
     # Collect responses for the mode question (feedback giver only)
     ai_revision_responses = [

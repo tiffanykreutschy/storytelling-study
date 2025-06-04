@@ -119,12 +119,25 @@ document.addEventListener('DOMContentLoaded', function () {
         responsesInput.value = JSON.stringify(responses);
     }
 
-    // Save and auto-submit ~10 seconds before timeout
-    const TIMEOUT_BUFFER_MS = 590000;  // For 600-second page timeout
+    function allQuestionsAnswered() {
+        const totalQuestions = {{ images|length }};
+        const answered = new Set(
+            Array.from(inputs).filter(i => i.checked).map(i => i.name)
+        );
+        return answered.size === totalQuestions;
+    }
+
+    // Auto-submit near timeout, only if all responses are filled
+    const TIMEOUT_BUFFER_MS = 590000;  // 10 minutes - 10s
 
     setTimeout(() => {
-        saveResponses();
-        form.submit();
+        if (allQuestionsAnswered()) {
+            saveResponses();
+            form.submit();
+        } else {
+            alert("You didn’t complete all the questions in time. The experiment will proceed without saving this part.");
+            // Optional: save partial? or redirect?
+        }
     }, TIMEOUT_BUFFER_MS);
 });
 </script>
