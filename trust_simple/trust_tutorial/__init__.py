@@ -1019,20 +1019,17 @@ class EyesTask(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         try:
-            # Parse responses from JSON
-            responses = json.loads(player.responses)
+            responses = json.loads(player.responses or '[]')  # Handles empty case
             correct_count = sum(
                 1 for i, response in enumerate(responses)
                 if response == Constants.images[i]['correct']
             )
-            # Update correct_answers and bonus
             player.correct_answers = correct_count
-            player.bonus = correct_count * 0.10  # $0.10 per correct answer
-        except (KeyError, IndexError, json.JSONDecodeError) as e:
-            print(f"Error calculating correct answers: {e}")
+            player.bonus = correct_count * 0.10
+        except Exception as e:
+            print(f"[Error in before_next_page for EyesTask]: {e}")
             player.correct_answers = 0
             player.bonus = 0.0
-
 
 class Results(Page):
     @staticmethod
