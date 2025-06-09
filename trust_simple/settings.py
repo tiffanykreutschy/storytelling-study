@@ -5,7 +5,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 SECRET_KEY = 'replace-this-with-your-secret-key'
 
-DEBUG = True
+DEBUG = False
 
 DATABASES = {
     'default': {
